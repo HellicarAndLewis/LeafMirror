@@ -17,7 +17,7 @@ USER_CFLAGS =
 # for example libraries like:
 # USER_LDFLAGS = libs/libawesomelib.a
 
-USER_LDFLAGS =
+USER_LDFLAGS = $(shell pkg-config libusb-1.0 --libs)
 
 
 EXCLUDE_FROM_SOURCE="bin,.xcodeproj,obj"

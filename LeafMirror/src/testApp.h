@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ofMain.h"
+#include "KinectController.h"
+#include "ofxGui.h"
 
 class testApp : public ofBaseApp{
 
@@ -19,4 +21,8 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
+		KinectController kinect;
+		ofxPanel gui;
+		ofParameter<bool> fill;
+		vector<ofPath> paths;
 };
