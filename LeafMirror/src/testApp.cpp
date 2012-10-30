@@ -3,16 +3,21 @@
 //--------------------------------------------------------------
 void testApp::setup(){
 	kinect.setup();
+	wall.setup();
+
+	ofBackground(0);
+
 	gui.setup();
 	gui.add(fill.set("fill",false));
 	gui.add(kinect.parameters);
+	gui.add(wall.parameters);
+
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 	kinect.update();
 	if(kinect.isFrameNew()){
-		paths.clear();
 		for(u_int i=0;i<kinect.getBlobs().size();++i){
 			if(fill){
 				kinect.getBlobs()[i].setStrokeWidth(0);
@@ -23,23 +28,27 @@ void testApp::update(){
 				kinect.getBlobs()[i].setStrokeColor(ofColor(251,231,0));
 				kinect.getBlobs()[i].setFilled(false);
 			}
-
-			kinect.getBlobs()[i].close();
 		}
+		wall.begin();
+		drawBlobs(0,0);
+		wall.end();
+	}
+}
+
+void testApp::drawBlobs(float x, float y){
+	ofSetColor(0,33,67);
+	ofRect(x,y,640,480);
+	for(u_int i=0;i<kinect.getBlobs().size();i++){
+		kinect.getBlobs()[i].draw(x,y);
 	}
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	kinect.drawDebug(220,10);
+	///kinect.drawDebug(220,10);
+	wall.drawSimulation(220,10);
 	gui.draw();
-
-	ofSetColor(0,33,67);
-	ofRect(200+320*2+10*3,10,640,480);
-	for(u_int i=0;i<kinect.getBlobs().size();i++){
-		kinect.getBlobs()[i].draw(200+320*2+10*3,10);
-	}
-
+	drawBlobs(220+320*2+10*3,10);
 	ofSetColor(255);
 
 }

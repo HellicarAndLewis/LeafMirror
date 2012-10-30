@@ -12,7 +12,7 @@
 using namespace ofxCv;
 
 KinectController::KinectController() {
-	// TODO Auto-generated constructor stub
+	bNewFrame = false;
 
 }
 
