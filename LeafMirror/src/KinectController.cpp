@@ -7,6 +7,7 @@
 
 #include "KinectController.h"
 #include <set>
+#include "ofxCv.h"
 
 using namespace ofxCv;
 
@@ -24,16 +25,11 @@ void KinectController::setup(){
 	grayThresNear.allocate(640,480,OF_IMAGE_GRAYSCALE);
 	thresholdImg.allocate(640,480,OF_IMAGE_GRAYSCALE);
 	gray.allocate(640,480,OF_IMAGE_GRAYSCALE);
-	fillmask.allocate(640,480,1);
 	grayTex.allocate(640,480,GL_LUMINANCE);
 
 	minX.addListener(this,&KinectController::maskChanged);
 	maxX.addListener(this,&KinectController::maskChanged);
 	tilt.addListener(this,&KinectController::tiltChanged);
-
-	contourFinder.setFindHoles(true);
-	contourFinder.setMinArea(minArea);
-	contourFinder.setMaxArea(maxArea);
 
 	parameters.setName("kinect");
 	parameters.add(near.set("near",255,0,255));
@@ -65,7 +61,9 @@ void KinectController::tiltChanged(int & tilt){
 void KinectController::findContours(){
 	vector<vector<cv::Point> > allContours;
 	vector<Vec4i> hierarchy;
-	cv::Mat threshodlMat = toCv(thresholdImg);
+	vector<cv::Point> simplifiedContour;
+	contourCopy = thresholdImg;
+	cv::Mat threshodlMat = toCv(contourCopy);
 	cv::findContours(threshodlMat, allContours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
 	map<int,int> index;
 	set<int> filtered;
@@ -104,7 +102,6 @@ void KinectController::findContours(){
 		}
 	}
 
-	cout << "end frame" << endl;
 }
 
 void KinectController::update(){
@@ -115,14 +112,7 @@ void KinectController::update(){
 		threshold(gray,grayThresNear,near,true);
 		cv::Mat thresholdMat = toCv(thresholdImg);
 		cv::bitwise_and(toCv(grayThresNear), toCv(grayThresFar), thresholdMat, toCv(mask));
-		contourFinder.setMinArea(minArea);
-		contourFinder.setMaxArea(maxArea);
 		findContours();
-		/*polylines = contourFinder.getPolylines();
-		for(u_int i=0;i<polylines.size();++i){
-			polylines[i] = polylines[i].getResampledBySpacing(resampling);
-			polylines[i] = polylines[i].getSmoothed(smoothing*polylines[i].size(),smoothingShape);
-		}*/
 		thresholdImg.update();
 		grayTex.loadData(gray);
 		bNewFrame = true;

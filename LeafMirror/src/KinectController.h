@@ -10,8 +10,6 @@
 
 #include "ofxKinect.h"
 #include "ofParameter.h"
-#include "ofxCv.h"
-#include "ofxKinectInpainter.h"
 
 class KinectController {
 public:
@@ -38,14 +36,12 @@ public:
 
 private:
 	ofPixels grayThresNear, grayThresFar, mask;
-	ofPixels fillmask;
+	ofPixels contourCopy;
 	ofImage thresholdImg;
 	ofPixels gray;
 	ofTexture grayTex;
-	ofxCv::ContourFinder contourFinder;
 	vector<ofPath> paths;
 	bool bNewFrame;
-	ofxKinectInpainter kinectInPaint;
 
 	void findContours();
 	void maskChanged(int & param);
