@@ -38,6 +38,8 @@
 		DAB3BF33164045BA009F3745 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAB3BF27164045BA009F3745 /* tinyxmlparser.cpp */; };
 		DAB3BF34164045BA009F3745 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAB3BF29164045BA009F3745 /* ofxXmlSettings.cpp */; };
 		DAB3C056164045EC009F3745 /* opencv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB3BFE6164045EB009F3745 /* opencv.a */; };
+		DAB3C0F416404EE0009F3745 /* ofxGuiGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAB3C0F016404EE0009F3745 /* ofxGuiGroup.cpp */; };
+		DAB3C0F516404EE0009F3745 /* ofxSliderGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAB3C0F216404EE0009F3745 /* ofxSliderGroup.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworks.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
@@ -139,8 +141,6 @@
 		DAB3BE1416404599009F3745 /* ofxBase3DVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBase3DVideo.h; sourceTree = "<group>"; };
 		DAB3BE1516404599009F3745 /* ofxKinect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxKinect.cpp; sourceTree = "<group>"; };
 		DAB3BE1616404599009F3745 /* ofxKinect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxKinect.h; sourceTree = "<group>"; };
-		DAB3BF13164045BA009F3745 /* ofOscParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofOscParameter.h; sourceTree = "<group>"; };
-		DAB3BF14164045BA009F3745 /* ofParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofParameter.h; sourceTree = "<group>"; };
 		DAB3BF15164045BA009F3745 /* ofxBaseGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBaseGui.cpp; sourceTree = "<group>"; };
 		DAB3BF16164045BA009F3745 /* ofxBaseGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBaseGui.h; sourceTree = "<group>"; };
 		DAB3BF17164045BA009F3745 /* ofxButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxButton.cpp; sourceTree = "<group>"; };
@@ -243,6 +243,10 @@
 		DAB3BF97164045EB009F3745 /* tracking.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tracking.hpp; sourceTree = "<group>"; };
 		DAB3BF98164045EB009F3745 /* video.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = video.hpp; sourceTree = "<group>"; };
 		DAB3BFE6164045EB009F3745 /* opencv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = opencv.a; sourceTree = "<group>"; };
+		DAB3C0F016404EE0009F3745 /* ofxGuiGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGuiGroup.cpp; sourceTree = "<group>"; };
+		DAB3C0F116404EE0009F3745 /* ofxGuiGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxGuiGroup.h; sourceTree = "<group>"; };
+		DAB3C0F216404EE0009F3745 /* ofxSliderGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxSliderGroup.cpp; sourceTree = "<group>"; };
+		DAB3C0F316404EE0009F3745 /* ofxSliderGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSliderGroup.h; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
@@ -541,8 +545,10 @@
 		DAB3BF12164045BA009F3745 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				DAB3BF13164045BA009F3745 /* ofOscParameter.h */,
-				DAB3BF14164045BA009F3745 /* ofParameter.h */,
+				DAB3C0F016404EE0009F3745 /* ofxGuiGroup.cpp */,
+				DAB3C0F116404EE0009F3745 /* ofxGuiGroup.h */,
+				DAB3C0F216404EE0009F3745 /* ofxSliderGroup.cpp */,
+				DAB3C0F316404EE0009F3745 /* ofxSliderGroup.h */,
 				DAB3BF15164045BA009F3745 /* ofxBaseGui.cpp */,
 				DAB3BF16164045BA009F3745 /* ofxBaseGui.h */,
 				DAB3BF17164045BA009F3745 /* ofxButton.cpp */,
@@ -990,6 +996,8 @@
 				DAB3BF32164045BA009F3745 /* tinyxmlerror.cpp in Sources */,
 				DAB3BF33164045BA009F3745 /* tinyxmlparser.cpp in Sources */,
 				DAB3BF34164045BA009F3745 /* ofxXmlSettings.cpp in Sources */,
+				DAB3C0F416404EE0009F3745 /* ofxGuiGroup.cpp in Sources */,
+				DAB3C0F516404EE0009F3745 /* ofxSliderGroup.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1027,6 +1035,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					../addons/ofxKinect/libs/libusb/osx/include,
+					../../../addons/ofxOpenCv/libs/opencv/include,
+					../addons/ofxCv/libs/ofxCv/include,
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
@@ -1061,6 +1072,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					../addons/ofxKinect/libs/libusb/osx/include,
+					../../../addons/ofxOpenCv/libs/opencv/include,
+					../addons/ofxCv/libs/ofxCv/include,
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
