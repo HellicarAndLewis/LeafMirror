@@ -1,0 +1,24 @@
+<UnknownName>
+    <fill>1</fill>
+    <debugView>1</debugView>
+    <outputOffset>1225, 0</outputOffset>
+    <outputSize>1024, 768</outputSize>
+    <kinect>
+        <near>255</near>
+        <far>182</far>
+        <minArea>1000</minArea>
+        <maxArea>307200</maxArea>
+        <minHoleArea>50</minHoleArea>
+        <maxHoleArea>100</maxHoleArea>
+        <tilt>0</tilt>
+        <resampling>3</resampling>
+        <smoothing>0.01</smoothing>
+        <smoothingShape>0</smoothingShape>
+    </kinect>
+    <wall>
+        <wallSize>35, 114</wallSize>
+        <ledSeparation>20, 5.8</ledSeparation>
+        <ledRadius>3</ledRadius>
+        <outputTexFilter>0</outputTexFilter>
+    </wall>
+</UnknownName>
