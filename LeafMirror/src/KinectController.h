@@ -23,19 +23,18 @@ public:
 	vector<ofPath> & getBlobs();
 
 	ofParameter<int> near, far;
-	ofParameter<int> minX, maxX;
 	ofParameter<int> minArea, maxArea;
+	ofParameter<int> minHoleArea,maxHoleArea;
 	ofParameter<int> tilt;
 	ofParameter<float> resampling;
 	ofParameter<float> smoothing;
 	ofParameter<float> smoothingShape;
-	ofParameter<int> maxHoleSize;
 	ofParameterGroup parameters;
 
 	ofxKinect kinect;
 
 private:
-	ofPixels grayThresNear, grayThresFar, mask;
+	ofPixels grayThresNear, grayThresFar;
 	ofPixels contourCopy;
 	ofImage thresholdImg;
 	ofPixels gray;

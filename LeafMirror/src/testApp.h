@@ -27,5 +27,8 @@ class testApp : public ofBaseApp{
 		KinectController kinect;
 		ofxPanel gui;
 		ofParameter<bool> fill;
+		ofParameter<int> debugView;
+		ofParameter<ofVec2f> outputOffset;
+		ofParameter<ofVec2f> outputSize;
 		WallSimulator wall;
 };

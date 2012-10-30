@@ -11,6 +11,7 @@
 #include "ofFbo.h"
 #include "ofParameter.h"
 #include "ofParameterGroup.h"
+#include "ofVboMesh.h"
 
 class WallSimulator {
 public:
@@ -27,12 +28,16 @@ public:
 	ofParameter<ofVec2f> wallSize;
 	ofParameter<ofVec2f> ledSeparation;
 	ofParameter<int> ledRadius;
+	ofParameter<bool> outputTexFilter;
 	ofParameterGroup parameters;
 
 private:
 	void wallSizeChanged(ofVec2f & wallSize);
+	void outputTexFilterChanged(bool & outputTexFilter);
+	void ledSeparationChanged(ofVec2f & ledSeparation);
 	ofFbo fbo;
 	ofPixels pixels;
+	ofVboMesh mesh;
 };
 
 #endif /* WALLSIMULATOR_H_ */
