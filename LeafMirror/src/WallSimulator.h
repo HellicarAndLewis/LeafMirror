@@ -12,6 +12,7 @@
 #include "ofParameter.h"
 #include "ofParameterGroup.h"
 #include "ofVboMesh.h"
+#include "Glow.h"
 
 class WallSimulator {
 public:
@@ -38,6 +39,7 @@ private:
 	ofFbo fbo;
 	ofPixels pixels;
 	ofVboMesh mesh;
+	Glow glow;
 };
 
 #endif /* WALLSIMULATOR_H_ */
