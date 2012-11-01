@@ -33,10 +33,10 @@ void KinectController::setup(){
 	parameters.setName("kinect");
 	parameters.add(near.set("near",255,0,255));
 	parameters.add(far.set("far",0,0,255));
-	parameters.add(minArea.set("minArea",640.*480./10,0,1000));
+	parameters.add(minArea.set("minArea",1000,0,1000));
 	parameters.add(maxArea.set("maxArea",640.*480.,640.*480./10,640*480));
-	parameters.add(minHoleArea.set("minHoleArea",50,0,1000));
-	parameters.add(maxHoleArea.set("maxHoleArea",100,0,10000));
+	parameters.add(minHoleArea.set("minHoleArea",100,0,1000));
+	parameters.add(maxHoleArea.set("maxHoleArea",1000,0,10000));
 	parameters.add(tilt.set("tilt",0,-30,30));
 	parameters.add(resampling.set("resampling",3,1,20));
 	parameters.add(smoothing.set("smoothing",0.01,0,0.05));

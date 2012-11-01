@@ -14,15 +14,25 @@ WallSimulator::WallSimulator() {
 }
 
 void WallSimulator::setup(){
-	wallSize.addListener(this,&WallSimulator::wallSizeChanged);
-	outputTexFilter.addListener(this,&WallSimulator::outputTexFilterChanged);
-	ledSeparation.addListener(this,&WallSimulator::ledSeparationChanged);
 
 	parameters.setName("wall");
-	parameters.add(wallSize.set("wallSize",ofVec2f(37,28),ofVec2f(0,0),ofVec2f(200,200)));
-	parameters.add(ledSeparation.set("ledSeparation",ofVec2f(14,14),ofVec2f(0,0),ofVec2f(20,20)));
+	parameters.add(wallWidth.set("wallWidth",114,1,200));
+	parameters.add(wallHeight.set("wallHeight",35,1,200));
+	parameters.add(ledSeparationX.set("ledSeparationX",14,0,20));
+	parameters.add(ledSeparationY.set("ledSeparationY",14,0,20));
 	parameters.add(ledRadius.set("ledRadius",5,1,20));
 	parameters.add(outputTexFilter.set("outputTexFilter",false));
+
+	wallWidth.addListener(this,&WallSimulator::wallSizeChanged);
+	wallHeight.addListener(this,&WallSimulator::wallSizeChanged);
+	outputTexFilter.addListener(this,&WallSimulator::outputTexFilterChanged);
+	ledSeparationX.addListener(this,&WallSimulator::ledSeparationChanged);
+	ledSeparationY.addListener(this,&WallSimulator::ledSeparationChanged);
+
+	int w = wallWidth;
+	wallSizeChanged(w);
+	bool texFilter = outputTexFilter;
+	outputTexFilterChanged(texFilter);
 
 	mesh.setMode(OF_PRIMITIVE_POINTS);
 }
@@ -35,18 +45,18 @@ void WallSimulator::outputTexFilterChanged(bool & outputTexFilter){
 	}
 }
 
-void WallSimulator::wallSizeChanged(ofVec2f & wallSize){
-	fbo.allocate((int)wallSize.x,(int)wallSize.y,GL_RGBA);
-	mesh.getVertices().resize(wallSize.x*wallSize.y);
-	mesh.getColors().resize(wallSize.x*wallSize.y);
-	ofVec2f sep = ledSeparation;
+void WallSimulator::wallSizeChanged(int & wallSize){
+	fbo.allocate((int)wallWidth,(int)wallHeight,GL_RGBA);
+	float sep = ledSeparationX;
 	ledSeparationChanged(sep);
 }
 
-void WallSimulator::ledSeparationChanged(ofVec2f & ledSeparation){
-	for(int y=0;y<wallSize->y;++y){
-		for(int x=0;x<wallSize->x;++x){
-			mesh.getVertices()[y*wallSize->x+x].set(x*ledSeparation.x,y*ledSeparation.y);
+void WallSimulator::ledSeparationChanged(float & ledSeparation){
+	mesh.getVertices().resize(wallWidth*wallHeight);
+	mesh.getColors().resize(wallWidth*wallHeight);
+	for(int y=0;y<wallHeight;++y){
+		for(int x=0;x<wallWidth;++x){
+			mesh.getVertices()[y*wallWidth+x].set(x*ledSeparationX,y*ledSeparationY);
 		}
 	}
 }
@@ -55,16 +65,16 @@ void WallSimulator::ledSeparationChanged(ofVec2f & ledSeparation){
 void WallSimulator::begin(){
 	fbo.begin();
 	ofPushMatrix();
-	ofScale(wallSize->x/640.,wallSize->y/480.,1);
+	ofScale(wallWidth/640.,wallHeight/480.,1);
 }
 
 void WallSimulator::end(){
 	ofPopMatrix();
 	fbo.end();
 	fbo.readToPixels(pixels);
-	for(int y=0;y<wallSize->y;++y){
-		for(int x=0;x<wallSize->x;++x){
-			mesh.getColors()[y*wallSize->x+x]=pixels.getColor(x,y);
+	for(int y=0;y<wallHeight;++y){
+		for(int x=0;x<wallWidth;++x){
+			mesh.getColors()[y*wallWidth+x]=pixels.getColor(x,y);
 		}
 	}
 }

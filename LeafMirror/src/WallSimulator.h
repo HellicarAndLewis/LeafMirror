@@ -25,16 +25,16 @@ public:
 	void drawSimulation(float xW, float yW);
 	void drawOutput(float x, float y, float w, float h);
 
-	ofParameter<ofVec2f> wallSize;
-	ofParameter<ofVec2f> ledSeparation;
+	ofParameter<int> wallHeight,wallWidth;
+	ofParameter<float> ledSeparationX,ledSeparationY;
 	ofParameter<int> ledRadius;
 	ofParameter<bool> outputTexFilter;
 	ofParameterGroup parameters;
 
 private:
-	void wallSizeChanged(ofVec2f & wallSize);
+	void wallSizeChanged(int & wallSize);
 	void outputTexFilterChanged(bool & outputTexFilter);
-	void ledSeparationChanged(ofVec2f & ledSeparation);
+	void ledSeparationChanged(float & ledSeparation);
 	ofFbo fbo;
 	ofPixels pixels;
 	ofVboMesh mesh;

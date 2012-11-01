@@ -4,7 +4,7 @@
 void testApp::setup(){
 	kinect.setup();
 	wall.setup();
-
+	ofSetVerticalSync(true);
 	ofBackground(0);
 
 	gui.setup("settings");
@@ -16,7 +16,7 @@ void testApp::setup(){
 	gui.add(kinect.parameters);
 	gui.add(wall.parameters);
 
-	//gui.loadFromFile("settings.xml");
+	gui.loadFromFile("settings.xml");
 	Particle::screenHeight = 480;
 
 	glHint(GL_POINT_SMOOTH_HINT,GL_NICEST);
