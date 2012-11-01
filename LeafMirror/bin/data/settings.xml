@@ -7,7 +7,7 @@
     <outputSizeY>768</outputSizeY>
     <kinect>
         <near>255</near>
-        <far>183</far>
+        <far>193</far>
         <minArea>1000</minArea>
         <maxArea>307200</maxArea>
         <minHoleArea>100</minHoleArea>
@@ -22,11 +22,12 @@
     </kinect>
     <wall>
         <wallWidth>114</wallWidth>
-        <wallHeight>35</wallHeight>
-        <ledSeparationX>8.8</ledSeparationX>
-        <ledSeparationY>18.8</ledSeparationY>
+        <wallHeight>28</wallHeight>
+        <ledSeparationX>6.8</ledSeparationX>
+        <ledSeparationY>20</ledSeparationY>
         <ledRadius>3</ledRadius>
         <outputTexFilter>0</outputTexFilter>
+        <passes>1</passes>
     </wall>
     <accel>180</accel>
 </settings>

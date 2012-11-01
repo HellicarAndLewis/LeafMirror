@@ -15,6 +15,7 @@ ParticleSystem::ParticleSystem() {
 
 void ParticleSystem::update(){
 	renderMesh.getVertices().resize(particles.size());
+	renderMesh.getColors().resize(particles.size());
 	list<Particle>::iterator it;
 	int i=0;
 	for(it=particles.begin();it!=particles.end();++it, ++i){
@@ -25,6 +26,7 @@ void ParticleSystem::update(){
 			particles.erase(itToDelete);
 		}
 		renderMesh.getVertices()[i]=it->pos;
+		renderMesh.getColors()[i]=it->color;
 	}
 }
 

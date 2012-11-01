@@ -36,7 +36,6 @@ private:
 	void wallSizeChanged(int & wallSize);
 	void outputTexFilterChanged(bool & outputTexFilter);
 	void ledSeparationChanged(float & ledSeparation);
-	ofFbo fbo;
 	ofPixels pixels;
 	ofVboMesh mesh;
 	Glow glow;

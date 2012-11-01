@@ -10,7 +10,7 @@
 #include "ofGraphics.h"
 
 Glow::Glow() {
-	passes.set("passes",5,1,10);
+	passes.set("passes",5,0,10);
 
 }
 
