@@ -22,6 +22,8 @@ public:
 	void drawDebug(float x, float y);
 
 	vector<ofPath> & getBlobs();
+	ofPixels & getThreshold();
+	ofPixels & getDepth();
 
 	ofParameter<int> near, far;
 	ofParameter<int> minArea, maxArea;

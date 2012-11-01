@@ -12,10 +12,12 @@ void testApp::setup(){
 	gui.add(debugView.set("debugView",0,0,3));
 	gui.add(outputOffset.set("outputOffset",ofVec2f(1280,0),ofVec2f(0,0),ofVec3f(2500,1280)));
 	gui.add(outputSize.set("outputSize",ofVec2f(1024,768),ofVec2f(1,1),ofVec3f(1920,1280)));
+	gui.add(Particle::acc);
 	gui.add(kinect.parameters);
 	gui.add(wall.parameters);
 
 	//gui.loadFromFile("settings.xml");
+	Particle::screenHeight = 480;
 
 	glHint(GL_POINT_SMOOTH_HINT,GL_NICEST);
 	glEnable(GL_POINT_SMOOTH);
@@ -25,6 +27,10 @@ void testApp::setup(){
 void testApp::update(){
 	kinect.update();
 	if(kinect.isFrameNew()){
+		frameDifference.update(kinect.getThreshold());
+		for(u_int i=0;i<frameDifference.getPointsMovement().size();++i){
+			particles.addParticle(frameDifference.getPointsMovement()[i]);
+		}
 		for(u_int i=0;i<kinect.getBlobs().size();++i){
 			if(fill){
 				kinect.getBlobs()[i].setStrokeWidth(0);
@@ -36,10 +42,11 @@ void testApp::update(){
 				kinect.getBlobs()[i].setFilled(false);
 			}
 		}
-		wall.begin();
-		drawBlobs(0,0);
-		wall.end();
 	}
+	particles.update();
+	wall.begin();
+	drawBlobs(0,0);
+	wall.end();
 }
 
 void testApp::drawBlobs(float x, float y){
@@ -48,6 +55,8 @@ void testApp::drawBlobs(float x, float y){
 	for(u_int i=0;i<kinect.getBlobs().size();i++){
 		kinect.getBlobs()[i].draw(x,y);
 	}
+	ofSetColor(ofColor(251,231,0));
+	particles.draw(x,y);
 	ofSetColor(255);
 }
 
@@ -65,6 +74,7 @@ void testApp::draw(){
 		drawBlobs(240,10);
 		break;
 	case 3:
+		frameDifference.drawDebug(240,10);
 	default:
 		break;
 	}

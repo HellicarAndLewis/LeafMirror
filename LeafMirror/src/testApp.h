@@ -4,6 +4,9 @@
 #include "KinectController.h"
 #include "ofxGui.h"
 #include "WallSimulator.h"
+#include "FrameDifference.h"
+#include "ParticleSystem.h"
+#include "Particle.h"
 
 class testApp : public ofBaseApp{
 
@@ -31,4 +34,6 @@ class testApp : public ofBaseApp{
 		ofParameter<ofVec2f> outputOffset;
 		ofParameter<ofVec2f> outputSize;
 		WallSimulator wall;
+		FrameDifference frameDifference;
+		ParticleSystem particles;
 };

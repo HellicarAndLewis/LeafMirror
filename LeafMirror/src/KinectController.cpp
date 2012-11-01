@@ -267,12 +267,12 @@ void KinectController::smoothDepth(){
 void KinectController::update(){
 	kinect.update();
 	if(kinect.isFrameNew()){
-		//gray = kinect.getDepthPixelsRef();
-		smoothDepth();
+		gray = kinect.getDepthPixelsRef();
+		/*smoothDepth();
 		int n = 640*480;
 		for(int i = 0; i < n; i++) {
 			gray[i] = depthLookupTable[smoothDepthArray[i]];
-		}
+		}*/
 		threshold(gray,grayThresFar,far);
 		threshold(gray,grayThresNear,near,true);
 		cv::Mat thresholdMat = toCv(thresholdImg);
@@ -301,4 +301,12 @@ void KinectController::drawDebug(float x, float y){
 
 vector<ofPath> & KinectController::getBlobs(){
 	return paths;
+}
+
+ofPixels & KinectController::getThreshold(){
+	return thresholdImg.getPixelsRef();
+}
+
+ofPixels & KinectController::getDepth(){
+	return gray;
 }
