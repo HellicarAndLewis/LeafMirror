@@ -10,8 +10,10 @@ void testApp::setup(){
 	gui.setup("settings");
 	gui.add(fill.set("fill",false));
 	gui.add(debugView.set("debugView",0,0,3));
-	gui.add(outputOffset.set("outputOffset",ofVec2f(1280,0),ofVec2f(0,0),ofVec3f(2500,1280)));
-	gui.add(outputSize.set("outputSize",ofVec2f(1024,768),ofVec2f(1,1),ofVec3f(1920,1280)));
+	gui.add(outputOffsetX.set("outputOffsetX",1280,0,2500));
+	gui.add(outputOffsetY.set("outputOffsetY",0,0,1280));
+	gui.add(outputSizeX.set("outputSizeX",1024,1,1920));
+	gui.add(outputSizeY.set("outputSizeY",768,1,1280));
 	gui.add(Particle::acc);
 	gui.add(kinect.parameters);
 	gui.add(wall.parameters);
@@ -80,7 +82,7 @@ void testApp::draw(){
 	}
 
 	gui.draw();
-	wall.drawOutput(outputOffset->x,outputOffset->y,outputSize->x,outputSize->y);
+	wall.drawOutput(outputOffsetX,outputOffsetY,outputSizeX,outputSizeY);
 
 }
 

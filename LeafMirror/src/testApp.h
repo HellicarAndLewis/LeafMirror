@@ -31,8 +31,8 @@ class testApp : public ofBaseApp{
 		ofxPanel gui;
 		ofParameter<bool> fill;
 		ofParameter<int> debugView;
-		ofParameter<ofVec2f> outputOffset;
-		ofParameter<ofVec2f> outputSize;
+		ofParameter<int> outputOffsetX,outputOffsetY;
+		ofParameter<int> outputSizeX,outputSizeY;
 		WallSimulator wall;
 		FrameDifference frameDifference;
 		ParticleSystem particles;

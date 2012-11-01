@@ -41,9 +41,9 @@ void KinectController::setup(){
 	parameters.add(resampling.set("resampling",3,1,20));
 	parameters.add(smoothing.set("smoothing",0.01,0,0.05));
 	parameters.add(smoothingShape.set("smoothingShape",0,0,1));
-	parameters.add(innerBandThreshold.set("innerBandThreshold",5,1,20));
+	/*parameters.add(innerBandThreshold.set("innerBandThreshold",5,1,20));
 	parameters.add(outerBandThreshold.set("outerBandThreshold",2,1,20));
-	parameters.add(kernelSize.set("kernelSize",5,3,19));
+	parameters.add(kernelSize.set("kernelSize",5,3,19));*/
 
 	updateDepthLookupTable();
 }

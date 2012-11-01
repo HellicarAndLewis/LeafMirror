@@ -8,7 +8,7 @@
 #include "Particle.h"
 #include "ofAppRunner.h"
 
-ofParameter<ofVec2f> Particle::acc;
+ofParameter<float> Particle::acc;
 int Particle::screenHeight=35;
 
 Particle::Particle(const ofVec2f & pos)
@@ -19,7 +19,7 @@ Particle::Particle(const ofVec2f & pos)
 }
 
 void Particle::update(){
-	vel += ofVec2f(acc)*ofGetLastFrameTime();
+	vel.y += float(acc)*ofGetLastFrameTime();
 	pos += ofVec2f(vel)*ofGetLastFrameTime();
 	if(pos.y>screenHeight) alive=false;
 }

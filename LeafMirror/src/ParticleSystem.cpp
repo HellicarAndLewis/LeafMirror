@@ -10,7 +10,7 @@
 
 ParticleSystem::ParticleSystem() {
 	renderMesh.setMode(OF_PRIMITIVE_POINTS);
-	Particle::acc.set("accel",ofVec2f(0,9.8),ofVec2f(-100,-100),ofVec2f(100,100));
+	Particle::acc.set("accel",40,-300,300);
 }
 
 void ParticleSystem::update(){

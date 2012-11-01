@@ -17,7 +17,7 @@ public:
 
 	void update();
 
-	static ofParameter<ofVec2f> acc;
+	static ofParameter<float> acc;
 	static int screenHeight;
 	ofVec2f pos;
 	ofVec2f vel;
