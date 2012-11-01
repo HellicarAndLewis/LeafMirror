@@ -26,6 +26,7 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
 		void drawBlobs(float x, float y);
+		void drawBackground(float x, float y);
 
 		KinectController kinect;
 		ofxPanel gui;
@@ -33,6 +34,10 @@ class testApp : public ofBaseApp{
 		ofParameter<int> debugView;
 		ofParameter<int> outputOffsetX,outputOffsetY;
 		ofParameter<int> outputSizeX,outputSizeY;
+		ofParameter<bool> useParticles;
+		ofParameter<bool> renderFill;
+		ofParameter<ofColor> fillColor;
+		ofParameter<ofColor> bgColor;
 		WallSimulator wall;
 		FrameDifference frameDifference;
 		ParticleSystem particles;

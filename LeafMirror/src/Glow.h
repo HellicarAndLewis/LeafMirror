@@ -27,8 +27,8 @@ public:
 	ofTexture & getDepthTexture();
 	ofTexture & getTextureReference();
 	void readToPixels(ofPixels & pixels);
-
 	ofParameter<int> passes;
+	ofParameter<float> brightness;
 
 private:
 	ofFbo fbo1, fbo2;

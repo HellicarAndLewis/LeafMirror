@@ -27,7 +27,11 @@
         <ledSeparationY>20</ledSeparationY>
         <ledRadius>3</ledRadius>
         <outputTexFilter>0</outputTexFilter>
-        <passes>1</passes>
+        <passes>2</passes>
     </wall>
     <accel>180</accel>
+    <useParticles>0</useParticles>
+    <renderFill>0</renderFill>
+    <fillColor>251, 231, 0, 255</fillColor>
+    <bgColor>0, 33, 67, 255</bgColor>
 </settings>

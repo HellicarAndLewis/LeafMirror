@@ -2,7 +2,7 @@
 #extension GL_ARB_texture_rectangle : enable
 
 uniform sampler2DRect src_tex_unit0;
-uniform float blurAmnt;
+uniform float brightness;
 uniform int direction;
 
 float coeffs[3]; //= float[](0.2270270270, 0.3162162162, 0.0702702703);
@@ -26,7 +26,7 @@ void main()
 		color += coeffs[2] * texture2DRect(src_tex_unit0, st + vec2(2.0, 0.0)).rgb;
 		color += coeffs[1] * texture2DRect(src_tex_unit0, st + vec2(1.0, 0.0)).rgb;
 		
-		gl_FragColor = vec4(color,1);
+		gl_FragColor = vec4(color.r*brightness,color.g*brightness,color.b*brightness, 1);
 	}else{
 		vec3 color = vec3(0.0,0.0,0.0);
 		
@@ -36,7 +36,7 @@ void main()
 		color += coeffs[2] * texture2DRect(src_tex_unit0, st + vec2(0.0, 2.0)).rgb;
 		color += coeffs[1] * texture2DRect(src_tex_unit0, st + vec2(0.0, 1.0)).rgb;
 		
-		gl_FragColor = vec4(color ,texture2DRect(src_tex_unit0, st).a);
+		gl_FragColor = vec4(color.r*brightness,color.g*brightness,color.b*brightness, texture2DRect(src_tex_unit0, st).a);
 	}
 	gl_FragDepth = gl_FragCoord.z;
 }

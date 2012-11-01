@@ -20,6 +20,8 @@ public:
 
 	void setup();
 
+	void beginGlow();
+	void endGlow();
 	void begin();
 	void end();
 
@@ -30,6 +32,7 @@ public:
 	ofParameter<float> ledSeparationX,ledSeparationY;
 	ofParameter<int> ledRadius;
 	ofParameter<bool> outputTexFilter;
+	ofParameter<ofColor> backgroundColor;
 	ofParameterGroup parameters;
 
 private:
@@ -39,6 +42,7 @@ private:
 	ofPixels pixels;
 	ofVboMesh mesh;
 	Glow glow;
+	ofFbo fbo;
 };
 
 #endif /* WALLSIMULATOR_H_ */

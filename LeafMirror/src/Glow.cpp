@@ -11,6 +11,7 @@
 
 Glow::Glow() {
 	passes.set("passes",5,0,10);
+	brightness.set("brightness",1,0,4);
 
 }
 
@@ -50,6 +51,7 @@ void Glow::end(){
 		shader.begin();
 		shader.setUniformTexture("src_tex_unit0",fbo1.getTextureReference(),0);
 		shader.setUniform1i("direction",0);
+		shader.setUniform1f("brightness",brightness);
 		fbo1.draw(0,0);
 		shader.end();
 		fbo2.end();
@@ -59,6 +61,7 @@ void Glow::end(){
 		shader.begin();
 		shader.setUniformTexture("src_tex_unit0",fbo2.getTextureReference(),0);
 		shader.setUniform1i("direction",1);
+		shader.setUniform1f("brightness",brightness);
 		fbo2.draw(0,0);
 		shader.end();
 		fbo1.end();

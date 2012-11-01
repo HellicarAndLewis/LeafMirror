@@ -23,6 +23,7 @@ void WallSimulator::setup(){
 	parameters.add(ledRadius.set("ledRadius",5,1,20));
 	parameters.add(outputTexFilter.set("outputTexFilter",false));
 	parameters.add(glow.passes);
+	//parameters.add(glow.brightness);
 
 	wallWidth.addListener(this,&WallSimulator::wallSizeChanged);
 	wallHeight.addListener(this,&WallSimulator::wallSizeChanged);
@@ -41,13 +42,16 @@ void WallSimulator::setup(){
 void WallSimulator::outputTexFilterChanged(bool & outputTexFilter){
 	if(outputTexFilter){
 		glow.getTextureReference().setTextureMinMagFilter(GL_LINEAR,GL_LINEAR);
+		fbo.getTextureReference().setTextureMinMagFilter(GL_LINEAR,GL_LINEAR);
 	}else{
 		glow.getTextureReference().setTextureMinMagFilter(GL_NEAREST,GL_NEAREST);
+		fbo.getTextureReference().setTextureMinMagFilter(GL_NEAREST,GL_NEAREST);
 	}
 }
 
 void WallSimulator::wallSizeChanged(int & wallSize){
 	glow.setup((int)wallWidth,(int)wallHeight);
+	fbo.allocate((int)wallWidth,(int)wallHeight);
 	float sep = ledSeparationX;
 	ledSeparationChanged(sep);
 }
@@ -63,16 +67,28 @@ void WallSimulator::ledSeparationChanged(float & ledSeparation){
 }
 
 
-void WallSimulator::begin(){
+void WallSimulator::beginGlow(){
 	glow.begin(true);
+	ofPushMatrix();
+	ofScale(wallWidth/640.,wallHeight/480.,1);
+}
+
+void WallSimulator::endGlow(){
+	ofPopMatrix();
+	glow.end();
+}
+
+void WallSimulator::begin(){
+	fbo.begin(true);
+	glow.draw(0,0);
 	ofPushMatrix();
 	ofScale(wallWidth/640.,wallHeight/480.,1);
 }
 
 void WallSimulator::end(){
 	ofPopMatrix();
-	glow.end();
-	glow.readToPixels(pixels);
+	fbo.end();
+	fbo.readToPixels(pixels);
 	for(int y=0;y<wallHeight;++y){
 		for(int x=0;x<wallWidth;++x){
 			mesh.getColors()[y*wallWidth+x]=pixels.getColor(x,y);
