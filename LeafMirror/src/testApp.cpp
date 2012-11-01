@@ -7,13 +7,15 @@ void testApp::setup(){
 
 	ofBackground(0);
 
-	gui.setup();
+	gui.setup("settings");
 	gui.add(fill.set("fill",false));
 	gui.add(debugView.set("debugView",0,0,3));
 	gui.add(outputOffset.set("outputOffset",ofVec2f(1280,0),ofVec2f(0,0),ofVec3f(2500,1280)));
 	gui.add(outputSize.set("outputSize",ofVec2f(1024,768),ofVec2f(1,1),ofVec3f(1920,1280)));
 	gui.add(kinect.parameters);
 	gui.add(wall.parameters);
+
+	//gui.loadFromFile("settings.xml");
 
 	glHint(GL_POINT_SMOOTH_HINT,GL_NICEST);
 	glEnable(GL_POINT_SMOOTH);
