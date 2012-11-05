@@ -39,6 +39,7 @@ void WallSimulator::setup(){
 
 	mesh.setMode(OF_PRIMITIVE_POINTS);
 	particlesEffect.setup();
+	filterShader.load("","filter.frag");
 }
 
 void WallSimulator::outputTexFilterChanged(bool & outputTexFilter){
@@ -54,6 +55,9 @@ void WallSimulator::outputTexFilterChanged(bool & outputTexFilter){
 void WallSimulator::wallSizeChanged(int & wallSize){
 	glow.setup((int)wallWidth,(int)wallHeight,"");
 	fbo.allocate((int)wallWidth,(int)wallHeight);
+	fbo.begin();
+	drawBackground(0,0);
+	fbo.end();
 	float sep = ledSeparationX;
 	ledSeparationChanged(sep);
 }
@@ -87,6 +91,9 @@ void WallSimulator::endGlow(){
 
 void WallSimulator::begin(){
 	fbo.begin();
+	filterShader.begin();
+	filterShader.setUniformTexture("fboCurrent",glow.getTextureReference(),0);
+	filterShader.setUniformTexture("fboPrev",fbo.getTextureReference(),1);
 	glow.draw(0,0);
 	ofPushMatrix();
 	ofScale(wallWidth/640.,wallHeight/480.,1);
@@ -94,11 +101,12 @@ void WallSimulator::begin(){
 
 void WallSimulator::end(){
 	ofPopMatrix();
+	filterShader.end();
 	fbo.end();
 	fbo.readToPixels(pixels);
 	for(int y=0;y<wallHeight;++y){
 		for(int x=0;x<wallWidth;++x){
-			mesh.getColors()[y*wallWidth+x]=mesh.getColors()[y*wallWidth+x]*.9+pixels.getColor(x,y)*.1;
+			mesh.getColors()[y*wallWidth+x]=pixels.getColor(x,y);
 		}
 	}
 }

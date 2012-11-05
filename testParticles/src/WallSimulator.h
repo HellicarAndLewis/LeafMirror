@@ -46,6 +46,7 @@ private:
 	Glow glow;
 	ofFbo fbo;
 	ParticlesEffect particlesEffect;
+	ofShader filterShader;
 };
 
 #endif /* WALLSIMULATOR_H_ */
