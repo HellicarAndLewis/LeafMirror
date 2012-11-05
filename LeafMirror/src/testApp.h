@@ -24,9 +24,6 @@ class testApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
-		void drawBlobs(float x, float y);
-		void drawBackground(float x, float y);
 
 		KinectController kinect;
 		ofxPanel gui;
@@ -40,5 +37,5 @@ class testApp : public ofBaseApp{
 		ofParameter<ofColor> bgColor;
 		WallSimulator wall;
 		FrameDifference frameDifference;
-		ParticleSystem particles;
+		ofColor currentColor;
 };

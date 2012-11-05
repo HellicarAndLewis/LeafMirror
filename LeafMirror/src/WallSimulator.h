@@ -13,20 +13,21 @@
 #include "ofParameterGroup.h"
 #include "ofVboMesh.h"
 #include "Glow.h"
+#include "ParticleSystem.h"
+#include "KinectController.h"
 
 class WallSimulator {
 public:
 	WallSimulator();
 
-	void setup();
+	void setup(KinectController & kinect);
 
-	void beginGlow();
-	void endGlow();
-	void begin();
-	void end();
+	void update();
 
+	void drawBackground(float x, float y);
 	void drawSimulation(float xW, float yW);
 	void drawOutput(float x, float y, float w, float h);
+	void drawBlobs(float x, float y);
 
 	ofParameter<int> wallHeight,wallWidth;
 	ofParameter<float> ledSeparationX,ledSeparationY;
@@ -34,6 +35,7 @@ public:
 	ofParameter<bool> outputTexFilter;
 	ofParameter<ofColor> backgroundColor;
 	ofParameterGroup parameters;
+	ParticleSystem particles;
 
 private:
 	void wallSizeChanged(int & wallSize);
@@ -41,8 +43,12 @@ private:
 	void ledSeparationChanged(float & ledSeparation);
 	ofPixels pixels;
 	ofVboMesh mesh;
-	Glow glow;
+	Glow glowParticles,glowBlobs;
 	ofFbo fbo;
+	ofShader filterShader;
+	KinectController * kinect;
+	u_long lastTimeParticles;
+
 };
 
 #endif /* WALLSIMULATOR_H_ */

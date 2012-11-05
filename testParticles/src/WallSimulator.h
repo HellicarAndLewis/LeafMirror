@@ -42,7 +42,7 @@ private:
 	void ledSeparationChanged(float & ledSeparation);
 	ofPixels pixels;
 	ofVboMesh mesh;
-	Glow glow;
+	Glow glowParticles;
 	ofFbo fbo;
 	ofShader filterShader;
 

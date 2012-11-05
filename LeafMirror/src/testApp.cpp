@@ -1,9 +1,18 @@
 #include "testApp.h"
 
+ofColor niceRandomColor(){
+	ofColor c;
+	unsigned char hue = ofRandom(255);
+	unsigned char sat = ofRandom(190,256);
+	unsigned char bri = ofRandom(190,256);
+	c.setHsb(hue,sat,bri);
+	return c;
+}
+
 //--------------------------------------------------------------
 void testApp::setup(){
 	kinect.setup();
-	wall.setup();
+	wall.setup(kinect);
 	ofSetVerticalSync(true);
 	ofBackground(0);
 
@@ -14,14 +23,15 @@ void testApp::setup(){
 	gui.add(outputOffsetY.set("outputOffsetY",0,0,1280));
 	gui.add(outputSizeX.set("outputSizeX",1024,1,1920));
 	gui.add(outputSizeY.set("outputSizeY",768,1,1280));
-	gui.add(useParticles.set("useParticles",false));
-	gui.add(Particle::acc);
+	gui.add(useParticles.set("useParticles",true));
 	gui.add(kinect.parameters);
 	gui.add(wall.parameters);
+	gui.add(wall.particles.parameters);
 	gui.add(renderFill.set("renderFill",false));
 	gui.add(fillColor.set("fillColor",ofColor(251,231,0),ofColor(0,0,0,0),ofColor(255,255,255)));
 	gui.add(bgColor.set("bgColor",ofColor(0,33,67),ofColor(0,0,0,0),ofColor(255,255,255)));
 
+	currentColor = niceRandomColor();
 
 	gui.loadFromFile("settings.xml");
 	Particle::screenHeight = 480;
@@ -39,7 +49,10 @@ void testApp::update(){
 		frameDifference.update(kinect.getThreshold());
 		if(useParticles){
 			for(u_int i=0;i<frameDifference.getPointsMovement().size();++i){
-				particles.addParticle(frameDifference.getPointsMovement()[i]);
+				wall.particles.addParticle(frameDifference.getPointsMovement()[i],currentColor);
+			}
+			if(frameDifference.getPointsMovement().empty()){
+				currentColor = niceRandomColor();
 			}
 		}
 		for(u_int i=0;i<kinect.getBlobs().size();++i){
@@ -54,31 +67,8 @@ void testApp::update(){
 			}
 		}
 	}
-	particles.update();
 
-
-	wall.beginGlow();
-	drawBackground(0,0);
-	drawBlobs(0,0);
-	wall.endGlow();
-
-	wall.begin();
-	if(renderFill) drawBlobs(0,0);
-	wall.end();
-}
-
-void testApp::drawBackground(float x, float y){
-	ofSetColor(bgColor);
-	ofRect(x,y,640,480);
-	ofSetColor(255);
-}
-
-void testApp::drawBlobs(float x, float y){
-	for(u_int i=0;i<kinect.getBlobs().size();i++){
-		kinect.getBlobs()[i].draw(x,y);
-	}
-	ofSetColor(255);
-	particles.draw(x,y);
+	wall.update();
 }
 
 //--------------------------------------------------------------
@@ -92,8 +82,9 @@ void testApp::draw(){
 		wall.drawSimulation(240,10);
 		break;
 	case 2:
-		drawBackground(240,10);
-		drawBlobs(240,10);
+		wall.drawBackground(240,10);
+		wall.drawBlobs(240,10);
+		wall.particles.draw(240,10);
 		break;
 	case 3:
 		frameDifference.drawDebug(240,10);
@@ -123,12 +114,17 @@ void testApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-
+	wall.particles.addParticle(ofVec2f(x-240,y-10)/ofVec2f((wall.ledSeparationX)*wall.wallWidth,(wall.ledSeparationY)*wall.wallHeight)*ofVec2f(640,480)
+				,currentColor);
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-
+	if(button==2){
+		currentColor = niceRandomColor();
+	}else
+		wall.particles.addParticle(ofVec2f(x-240,y-10)/ofVec2f((wall.ledSeparationX)*wall.wallWidth,(wall.ledSeparationY)*wall.wallHeight)*ofVec2f(640,480)
+			,currentColor);
 }
 
 //--------------------------------------------------------------

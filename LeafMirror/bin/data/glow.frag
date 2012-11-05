@@ -18,25 +18,25 @@ void main()
 		//horizontal blur 
 		//from http://www.gamerendering.com/2008/10/11/gaussian-blur-filter-shader/
 		
-		vec3 color = vec3(0.0,0.0,0.0);
+		vec4 color = vec4(0.0,0.0,0.0,0.0);
 		
-		color += coeffs[2] * texture2DRect(src_tex_unit0, st - vec2(2.0, 0.0)).rgb;
-		color += coeffs[1] * texture2DRect(src_tex_unit0, st - vec2(1.0, 0.0)).rgb;
-		color += coeffs[0] * texture2DRect(src_tex_unit0, st).rgb;
-		color += coeffs[2] * texture2DRect(src_tex_unit0, st + vec2(2.0, 0.0)).rgb;
-		color += coeffs[1] * texture2DRect(src_tex_unit0, st + vec2(1.0, 0.0)).rgb;
+		color += coeffs[2] * texture2DRect(src_tex_unit0, st - vec2(2.0, 0.0)).rgba;
+		color += coeffs[1] * texture2DRect(src_tex_unit0, st - vec2(1.0, 0.0)).rgba;
+		color += coeffs[0] * texture2DRect(src_tex_unit0, st).rgba;
+		color += coeffs[2] * texture2DRect(src_tex_unit0, st + vec2(2.0, 0.0)).rgba;
+		color += coeffs[1] * texture2DRect(src_tex_unit0, st + vec2(1.0, 0.0)).rgba;
 		
-		gl_FragColor = vec4(color.r*brightness,color.g*brightness,color.b*brightness, 1);
+		gl_FragColor = vec4(color.r*brightness,color.g*brightness,color.b*brightness, color.a);
 	}else{
-		vec3 color = vec3(0.0,0.0,0.0);
+		vec4 color = vec4(0.0,0.0,0.0,0.0);
 		
-		color += coeffs[2] * texture2DRect(src_tex_unit0, st - vec2(0.0, 2.0)).rgb;
-		color += coeffs[1] * texture2DRect(src_tex_unit0, st - vec2(0.0, 1.0)).rgb;
-		color += coeffs[0] * texture2DRect(src_tex_unit0, st).rgb;
-		color += coeffs[2] * texture2DRect(src_tex_unit0, st + vec2(0.0, 2.0)).rgb;
-		color += coeffs[1] * texture2DRect(src_tex_unit0, st + vec2(0.0, 1.0)).rgb;
+		color += coeffs[2] * texture2DRect(src_tex_unit0, st - vec2(0.0, 2.0)).rgba;
+		color += coeffs[1] * texture2DRect(src_tex_unit0, st - vec2(0.0, 1.0)).rgba;
+		color += coeffs[0] * texture2DRect(src_tex_unit0, st).rgba;
+		color += coeffs[2] * texture2DRect(src_tex_unit0, st + vec2(0.0, 2.0)).rgba;
+		color += coeffs[1] * texture2DRect(src_tex_unit0, st + vec2(0.0, 1.0)).rgba;
 		
-		gl_FragColor = vec4(color.r*brightness,color.g*brightness,color.b*brightness, texture2DRect(src_tex_unit0, st).a);
+		gl_FragColor = vec4(color.r*brightness,color.g*brightness,color.b*brightness, color.a);
 	}
 	gl_FragDepth = gl_FragCoord.z;
 }

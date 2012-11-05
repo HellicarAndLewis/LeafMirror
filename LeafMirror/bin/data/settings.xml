@@ -28,10 +28,20 @@
         <ledRadius>3</ledRadius>
         <outputTexFilter>0</outputTexFilter>
         <passes>2</passes>
+        <backgroundColor>0, 33, 67, 255</backgroundColor>
+        <particlesGlowPasses>5</particlesGlowPasses>
+        <blobsGlowPasses>5</blobsGlowPasses>
     </wall>
     <accel>180</accel>
     <useParticles>0</useParticles>
     <renderFill>0</renderFill>
     <fillColor>251, 231, 0, 255</fillColor>
     <bgColor>0, 33, 67, 255</bgColor>
+    <particles>
+        <accel>40</accel>
+        <msGrow>350</msGrow>
+        <msStay>4020</msStay>
+        <msDissolve>3000</msDissolve>
+        <sizePerSecond>1.60965</sizePerSecond>
+    </particles>
 </settings>
