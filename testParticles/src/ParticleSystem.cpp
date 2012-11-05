@@ -11,6 +11,17 @@
 ParticleSystem::ParticleSystem() {
 	renderMesh.setMode(OF_PRIMITIVE_POINTS);
 	Particle::acc.set("accel",40,-300,300);
+	Particle::msGrow.set("msGrow",1000,1,5000);
+	Particle::msStay.set("msStay",3000,1,6000);
+	Particle::msDissolve.set("msDissolve",3000,1,6000);
+	Particle::sizePerSecond.set("sizePerSecond",1,.01,3);
+
+	parameters.setName("particles");
+	parameters.add(Particle::acc);
+	parameters.add(Particle::msGrow);
+	parameters.add(Particle::msStay);
+	parameters.add(Particle::msDissolve);
+	parameters.add(Particle::sizePerSecond);
 }
 
 void ParticleSystem::update(){

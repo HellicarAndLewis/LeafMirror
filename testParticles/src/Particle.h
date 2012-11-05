@@ -19,6 +19,10 @@ public:
 	void draw();
 
 	static ofParameter<float> acc;
+	static ofParameter<int> msGrow;
+	static ofParameter<int> msStay;
+	static ofParameter<int> msDissolve;
+	static ofParameter<float> sizePerSecond;
 	static int screenHeight;
 	ofVec2f pos;
 	ofVec2f vel;

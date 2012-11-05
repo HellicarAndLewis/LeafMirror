@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ParticleSystem.h"
 #include "WallSimulator.h"
+#include "ofxGui.h"
 
 class testApp : public ofBaseApp{
 
@@ -25,4 +26,6 @@ class testApp : public ofBaseApp{
 		WallSimulator wall;
 		unsigned long lastTimeGlow;
 		ofColor currentColor;
+		ofxPanel gui;
 };
+

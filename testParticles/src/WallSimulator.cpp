@@ -98,7 +98,7 @@ void WallSimulator::end(){
 	fbo.readToPixels(pixels);
 	for(int y=0;y<wallHeight;++y){
 		for(int x=0;x<wallWidth;++x){
-			mesh.getColors()[y*wallWidth+x]=pixels.getColor(x,y);
+			mesh.getColors()[y*wallWidth+x]=mesh.getColors()[y*wallWidth+x]*.9+pixels.getColor(x,y)*.1;
 		}
 	}
 }

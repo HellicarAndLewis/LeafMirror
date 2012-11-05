@@ -20,6 +20,10 @@ void testApp::setup(){
 	wall.endGlow();
 	currentColor = niceRandomColor();
 
+	gui.add(wall.parameters);
+	gui.add(particles.parameters);
+	ofSetCircleResolution(50);
+
 }
 
 //--------------------------------------------------------------
@@ -41,6 +45,9 @@ void testApp::draw(){
 	wall.drawSimulation(0,0);
 
 	wall.drawOutput(0,600,wall.wallWidth,wall.wallHeight);
+
+	gui.draw();
+	//particles.draw(0,0);
 }
 
 //--------------------------------------------------------------
