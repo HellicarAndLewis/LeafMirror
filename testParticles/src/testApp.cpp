@@ -21,29 +21,25 @@ void testApp::setup(){
 	currentColor = niceRandomColor();
 
 	gui.add(wall.parameters);
-	gui.add(particles.parameters);
+	gui.add(wall.particles.parameters);
 	ofSetCircleResolution(50);
 
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-	particles.update();
+	wall.particles.update();
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	//unsigned long now = ofGetElapsedTimeMillis();
-	//drawBackground(0,0);
 	wall.beginGlow();
-	particles.draw(0,0);
 	wall.endGlow();
 
 	wall.begin();
-	//particles.draw(0,0);
 	wall.end();
-	wall.drawSimulation(0,0);
 
+	wall.drawSimulation(0,0);
 	wall.drawOutput(0,600,wall.wallWidth,wall.wallHeight);
 
 	gui.draw();
@@ -67,7 +63,7 @@ void testApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-	particles.addParticle(ofVec2f(x,y)/ofVec2f((wall.ledSeparationX)*wall.wallWidth,(wall.ledSeparationY)*wall.wallHeight)*ofVec2f(640,480)
+	wall.particles.addParticle(ofVec2f(x,y)/ofVec2f((wall.ledSeparationX)*wall.wallWidth,(wall.ledSeparationY)*wall.wallHeight)*ofVec2f(640,480)
 			,currentColor);
 }
 
@@ -76,7 +72,7 @@ void testApp::mousePressed(int x, int y, int button){
 	if(button==2){
 		currentColor = niceRandomColor();
 	}else
-	particles.addParticle(ofVec2f(x,y)/ofVec2f((wall.ledSeparationX)*wall.wallWidth,(wall.ledSeparationY)*wall.wallHeight)*ofVec2f(640,480)
+		wall.particles.addParticle(ofVec2f(x,y)/ofVec2f((wall.ledSeparationX)*wall.wallWidth,(wall.ledSeparationY)*wall.wallHeight)*ofVec2f(640,480)
 			,currentColor);
 }
 

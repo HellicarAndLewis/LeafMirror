@@ -14,6 +14,7 @@
 #include "ofVboMesh.h"
 #include "Glow.h"
 #include "ParticlesEffect.h"
+#include "ParticleSystem.h"
 
 class WallSimulator {
 public:
@@ -36,6 +37,7 @@ public:
 	ofParameter<bool> outputTexFilter;
 	ofParameter<ofColor> backgroundColor;
 	ofParameterGroup parameters;
+	ParticleSystem particles;
 
 private:
 	void wallSizeChanged(int & wallSize);
@@ -47,6 +49,7 @@ private:
 	ofFbo fbo;
 	ParticlesEffect particlesEffect;
 	ofShader filterShader;
+
 };
 
 #endif /* WALLSIMULATOR_H_ */

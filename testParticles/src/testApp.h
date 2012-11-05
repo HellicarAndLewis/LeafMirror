@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ParticleSystem.h"
 #include "WallSimulator.h"
 #include "ofxGui.h"
 
@@ -22,7 +21,6 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
-		ParticleSystem particles;
 		WallSimulator wall;
 		unsigned long lastTimeGlow;
 		ofColor currentColor;

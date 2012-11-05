@@ -80,6 +80,7 @@ void WallSimulator::beginGlow(){
 	drawBackground(0,0);
 	ofPushMatrix();
 	ofScale(wallWidth/640.,wallHeight/480.,1);
+	particles.draw(0,0);
 }
 
 void WallSimulator::endGlow(){
@@ -91,10 +92,14 @@ void WallSimulator::endGlow(){
 
 void WallSimulator::begin(){
 	fbo.begin();
-	filterShader.begin();
-	filterShader.setUniformTexture("fboCurrent",glow.getTextureReference(),0);
-	filterShader.setUniformTexture("fboPrev",fbo.getTextureReference(),1);
-	glow.draw(0,0);
+	if(!particles.empty()){
+		filterShader.begin();
+		filterShader.setUniformTexture("fboCurrent",glow.getTextureReference(),0);
+		filterShader.setUniformTexture("fboPrev",fbo.getTextureReference(),1);
+		glow.draw(0,0);
+	}else{
+		drawBackground(0,0);
+	}
 	ofPushMatrix();
 	ofScale(wallWidth/640.,wallHeight/480.,1);
 }

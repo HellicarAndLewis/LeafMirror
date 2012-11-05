@@ -21,6 +21,10 @@ public:
 	void update();
 	void draw(float x, float y);
 
+	bool empty(){
+		return particles.empty();
+	}
+
 	ofParameterGroup parameters;
 
 private:
