@@ -38,7 +38,6 @@ void WallSimulator::setup(){
 	outputTexFilterChanged(texFilter);
 
 	mesh.setMode(OF_PRIMITIVE_POINTS);
-	particlesEffect.setup();
 	filterShader.load("","filter.frag");
 }
 

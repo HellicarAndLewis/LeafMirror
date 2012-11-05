@@ -44,7 +44,6 @@ private:
 	ofVboMesh mesh;
 	Glow glow;
 	ofFbo fbo;
-	ParticlesEffect particlesEffect;
 	ofShader filterShader;
 
 	u_long lastTimeParticles;
