@@ -72,8 +72,9 @@ void WallSimulator::ledSeparationChanged(float & ledSeparation){
 	}
 }
 
-
-void WallSimulator::beginGlow(){
+void WallSimulator::update(){
+	u_long now = ofGetElapsedTimeMillis();
+	particles.update(now);
 	//glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	//glEnable(GL_POINT_SPRITE);
 	glow.begin(true);
@@ -81,32 +82,29 @@ void WallSimulator::beginGlow(){
 	ofPushMatrix();
 	ofScale(wallWidth/640.,wallHeight/480.,1);
 	particles.draw(0,0);
-}
-
-void WallSimulator::endGlow(){
 	ofPopMatrix();
 	glow.end();
 	//glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	//glDisable(GL_POINT_SPRITE);
-}
 
-void WallSimulator::begin(){
+
 	fbo.begin();
 	if(!particles.empty()){
 		filterShader.begin();
 		filterShader.setUniformTexture("fboCurrent",glow.getTextureReference(),0);
 		filterShader.setUniformTexture("fboPrev",fbo.getTextureReference(),1);
+		filterShader.setUniform1f("filterFactor",.95);
 		glow.draw(0,0);
+		filterShader.end();
+		lastTimeParticles = now;
 	}else{
-		drawBackground(0,0);
+		filterShader.begin();
+		filterShader.setUniformTexture("fboCurrent",glow.getTextureReference(),0);
+		filterShader.setUniformTexture("fboPrev",fbo.getTextureReference(),1);
+		filterShader.setUniform1f("filterFactor",ofMap(now-lastTimeParticles,0,2000,.95,0.6,true));
+		glow.draw(0,0);
+		filterShader.end();
 	}
-	ofPushMatrix();
-	ofScale(wallWidth/640.,wallHeight/480.,1);
-}
-
-void WallSimulator::end(){
-	ofPopMatrix();
-	filterShader.end();
 	fbo.end();
 	fbo.readToPixels(pixels);
 	for(int y=0;y<wallHeight;++y){

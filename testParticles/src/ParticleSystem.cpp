@@ -24,8 +24,7 @@ ParticleSystem::ParticleSystem() {
 	parameters.add(Particle::sizePerSecond);
 }
 
-void ParticleSystem::update(){
-	u_long now = ofGetElapsedTimeMillis();
+void ParticleSystem::update(u_long now){
 	/*renderMesh.getVertices().resize(particles.size());
 	renderMesh.getColors().resize(particles.size());
 	renderMesh.getNormals().resize(particles.size());*/

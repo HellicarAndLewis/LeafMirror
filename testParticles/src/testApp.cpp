@@ -15,9 +15,6 @@ void testApp::setup(){
 	wall.setup();
 	ofBackground(0);
 	ofEnableAlphaBlending();
-	wall.beginGlow();
-	wall.drawBackground(0,0);
-	wall.endGlow();
 	currentColor = niceRandomColor();
 
 	gui.add(wall.parameters);
@@ -28,16 +25,11 @@ void testApp::setup(){
 
 //--------------------------------------------------------------
 void testApp::update(){
-	wall.particles.update();
+	wall.update();
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	wall.beginGlow();
-	wall.endGlow();
-
-	wall.begin();
-	wall.end();
 
 	wall.drawSimulation(0,0);
 	wall.drawOutput(0,600,wall.wallWidth,wall.wallHeight);

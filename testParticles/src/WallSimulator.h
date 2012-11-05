@@ -22,10 +22,7 @@ public:
 
 	void setup();
 
-	void beginGlow();
-	void endGlow();
-	void begin();
-	void end();
+	void update();
 
 	void drawBackground(float x, float y);
 	void drawSimulation(float xW, float yW);
@@ -49,6 +46,8 @@ private:
 	ofFbo fbo;
 	ParticlesEffect particlesEffect;
 	ofShader filterShader;
+
+	u_long lastTimeParticles;
 
 };
 

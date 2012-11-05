@@ -18,7 +18,7 @@ public:
 	ParticleSystem();
 
 	void addParticle(const ofVec2f & pos, const ofColor & color);
-	void update();
+	void update(u_long now);
 	void draw(float x, float y);
 
 	bool empty(){
