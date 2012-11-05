@@ -52,7 +52,7 @@ void WallSimulator::outputTexFilterChanged(bool & outputTexFilter){
 }
 
 void WallSimulator::wallSizeChanged(int & wallSize){
-	glow.setup((int)wallWidth,(int)wallHeight);
+	glow.setup((int)wallWidth,(int)wallHeight,"");
 	fbo.allocate((int)wallWidth,(int)wallHeight);
 	float sep = ledSeparationX;
 	ledSeparationChanged(sep);
@@ -70,6 +70,8 @@ void WallSimulator::ledSeparationChanged(float & ledSeparation){
 
 
 void WallSimulator::beginGlow(){
+	//glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+	//glEnable(GL_POINT_SPRITE);
 	glow.begin(true);
 	drawBackground(0,0);
 	ofPushMatrix();
@@ -79,10 +81,12 @@ void WallSimulator::beginGlow(){
 void WallSimulator::endGlow(){
 	ofPopMatrix();
 	glow.end();
+	//glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+	//glDisable(GL_POINT_SPRITE);
 }
 
 void WallSimulator::begin(){
-	particlesEffect.begin();
+	fbo.begin();
 	glow.draw(0,0);
 	ofPushMatrix();
 	ofScale(wallWidth/640.,wallHeight/480.,1);
@@ -90,8 +94,8 @@ void WallSimulator::begin(){
 
 void WallSimulator::end(){
 	ofPopMatrix();
-	particlesEffect.end();
-	particlesEffect.fbo2.readToPixels(pixels);
+	fbo.end();
+	fbo.readToPixels(pixels);
 	for(int y=0;y<wallHeight;++y){
 		for(int x=0;x<wallWidth;++x){
 			mesh.getColors()[y*wallWidth+x]=pixels.getColor(x,y);
@@ -116,5 +120,5 @@ void WallSimulator::drawSimulation(float xW, float yW){
 }
 
 void WallSimulator::drawOutput(float x, float y, float w, float h){
-	particlesEffect.fbo2.draw(x,y,w,h);
+	fbo.draw(x,y,w,h);
 }

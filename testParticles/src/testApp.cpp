@@ -1,5 +1,15 @@
 #include "testApp.h"
 
+ofColor niceRandomColor(){
+	ofColor c;
+	unsigned char hue = ofRandom(255);
+	unsigned char sat = ofRandom(190,256);
+	unsigned char bri = ofRandom(190,256);
+	c.setHsb(hue,sat,bri);
+	return c;
+}
+
+
 //--------------------------------------------------------------
 void testApp::setup(){
 	wall.setup();
@@ -8,6 +18,8 @@ void testApp::setup(){
 	wall.beginGlow();
 	wall.drawBackground(0,0);
 	wall.endGlow();
+	currentColor = niceRandomColor();
+
 }
 
 //--------------------------------------------------------------
@@ -48,12 +60,17 @@ void testApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-	particles.addParticle(ofVec2f(x,y)/ofVec2f((wall.ledSeparationX)*wall.wallWidth,(wall.ledSeparationY)*wall.wallHeight)*ofVec2f(640,480));
+	particles.addParticle(ofVec2f(x,y)/ofVec2f((wall.ledSeparationX)*wall.wallWidth,(wall.ledSeparationY)*wall.wallHeight)*ofVec2f(640,480)
+			,currentColor);
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-	particles.addParticle(ofVec2f(x,y)/ofVec2f((wall.ledSeparationX)*wall.wallWidth,(wall.ledSeparationY)*wall.wallHeight)*ofVec2f(640,480));
+	if(button==2){
+		currentColor = niceRandomColor();
+	}else
+	particles.addParticle(ofVec2f(x,y)/ofVec2f((wall.ledSeparationX)*wall.wallWidth,(wall.ledSeparationY)*wall.wallHeight)*ofVec2f(640,480)
+			,currentColor);
 }
 
 //--------------------------------------------------------------

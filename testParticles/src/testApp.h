@@ -24,4 +24,5 @@ class testApp : public ofBaseApp{
 		ParticleSystem particles;
 		WallSimulator wall;
 		unsigned long lastTimeGlow;
+		ofColor currentColor;
 };

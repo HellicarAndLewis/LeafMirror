@@ -17,7 +17,7 @@ public:
 	Glow();
 	virtual ~Glow();
 
-	void setup(float w=ofGetWidth(), float h=ofGetHeight());
+	void setup(float w=ofGetWidth(), float h=ofGetHeight(),string vertShader="");
 	void begin(bool setPerspective);
 	void end();
 

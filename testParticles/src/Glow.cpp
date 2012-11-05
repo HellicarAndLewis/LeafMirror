@@ -19,8 +19,8 @@ Glow::~Glow() {
 	// TODO Auto-generated destructor stub
 }
 
-void Glow::setup(float w, float h){
-	shader.load("","glow.frag");
+void Glow::setup(float w, float h,string vertShader){
+	shader.load(vertShader,"glow.frag");
 
 	ofFbo::Settings settings;
 	settings.depthStencilAsTexture = true;

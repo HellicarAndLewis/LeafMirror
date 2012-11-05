@@ -16,7 +16,7 @@ class ParticleSystem {
 public:
 	ParticleSystem();
 
-	void addParticle(const ofVec2f & pos);
+	void addParticle(const ofVec2f & pos, const ofColor & color);
 	void update();
 	void draw(float x, float y);
 

@@ -7,24 +7,18 @@
 
 #include "Particle.h"
 #include "ofAppRunner.h"
+#include "ofGraphics.h"
 
 ofParameter<float> Particle::acc=900;
 int Particle::screenHeight=35;
 
 
-ofColor niceRandomColor(){
-	ofColor c;
-	unsigned char hue = ofRandom(255);
-	unsigned char sat = ofRandom(190,256);
-	unsigned char bri = ofRandom(190,256);
-	c.setHsb(hue,sat,bri);
-	return c;
-}
 
-Particle::Particle(const ofVec2f & pos)
+Particle::Particle(const ofVec2f & pos, const ofColor & color)
 :pos(pos)
+,size(0)
 ,alive(true)
-,color(niceRandomColor())
+,color(color)
 ,originalColor(color)
 ,timeCreated(ofGetElapsedTimeMillis())
 {
@@ -37,14 +31,21 @@ void Particle::update(u_long now){
 		color.set(ofLerp(originalColor.r,0,pct),
 			ofLerp(originalColor.g,33,pct),
 			ofLerp(originalColor.b,67,pct));
-	}else if(timeDiff>2000 && timeDiff<=4000){
-		float pct = 1-double(4000-timeDiff)/2000.;
+	}else if(timeDiff>4000 && timeDiff<=7000){
+		float pct = 1-double(7000-timeDiff)/3000.;
 		color.set(ofLerp(originalColor.r,0,pct),
 				ofLerp(originalColor.g,33,pct),
 				ofLerp(originalColor.b,67,pct));
-	}else if(timeDiff>6000){
+	}else if(timeDiff>7000){
 		alive = false;
 	}
+	size = double(timeDiff)/1000.;
 	//vel.y += acc*ofGetLastFrameTime();
 	//pos += vel*ofGetLastFrameTime();
+}
+
+void Particle::draw(){
+	ofFill();
+	ofSetColor(color);
+	ofCircle(pos,size*.5*640./20.);
 }
