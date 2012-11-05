@@ -36,6 +36,8 @@ void testApp::setup(){
 	gui.loadFromFile("settings.xml");
 	Particle::screenHeight = 480;
 
+	showGui = true;
+
 	glHint(GL_POINT_SMOOTH_HINT,GL_NICEST);
 	glEnable(GL_POINT_SMOOTH);
 
@@ -74,32 +76,42 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 	ofSetColor(255);
-	switch(debugView){
-	case 0:
-		kinect.drawDebug(240,10);
-		break;
-	case 1:
-		wall.drawSimulation(240,10);
-		break;
-	case 2:
-		wall.drawBackground(240,10);
-		wall.drawBlobs(240,10);
-		wall.particles.draw(240,10);
-		break;
-	case 3:
-		frameDifference.drawDebug(240,10);
-	default:
-		break;
-	}
+	if(showGui){
+		switch(debugView){
+		case 0:
+			kinect.drawDebug(240,10);
+			break;
+		case 1:
+			wall.drawSimulation(240,10);
+			break;
+		case 2:
+			/*wall.drawBackground(240,10);
+			wall.drawBlobs(240,10);
+			wall.particles.draw(240,10);*/
+			wall.drawFbos(240,10);
+			break;
+		case 3:
+			frameDifference.drawDebug(240,10);
+			break;
+		default:
+			break;
+		}
 
-	gui.draw();
+		gui.draw();
+	}
 	wall.drawOutput(outputOffsetX,outputOffsetY,outputSizeX,outputSizeY);
 
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
+	if(key=='h'){
+		showGui = !showGui;
+	}
 
+	if(key=='f'){
+		ofToggleFullscreen();
+	}
 }
 
 //--------------------------------------------------------------
@@ -122,9 +134,10 @@ void testApp::mouseDragged(int x, int y, int button){
 void testApp::mousePressed(int x, int y, int button){
 	if(button==2){
 		currentColor = niceRandomColor();
-	}else
+	}else{
 		wall.particles.addParticle(ofVec2f(x-240,y-10)/ofVec2f((wall.ledSeparationX)*wall.wallWidth,(wall.ledSeparationY)*wall.wallHeight)*ofVec2f(640,480)
 			,currentColor);
+	}
 }
 
 //--------------------------------------------------------------

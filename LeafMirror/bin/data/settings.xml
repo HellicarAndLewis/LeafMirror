@@ -1,13 +1,13 @@
 <settings>
     <fill>1</fill>
     <debugView>1</debugView>
-    <outputOffsetX>1280</outputOffsetX>
+    <outputOffsetX>1212</outputOffsetX>
     <outputOffsetY>0</outputOffsetY>
     <outputSizeX>1024</outputSizeX>
     <outputSizeY>768</outputSizeY>
     <kinect>
         <near>255</near>
-        <far>193</far>
+        <far>140</far>
         <minArea>1000</minArea>
         <maxArea>307200</maxArea>
         <minHoleArea>100</minHoleArea>
@@ -29,19 +29,19 @@
         <outputTexFilter>0</outputTexFilter>
         <passes>2</passes>
         <backgroundColor>0, 33, 67, 255</backgroundColor>
-        <particlesGlowPasses>5</particlesGlowPasses>
-        <blobsGlowPasses>5</blobsGlowPasses>
+        <particlesGlowPasses>3</particlesGlowPasses>
+        <blobsGlowPasses>1</blobsGlowPasses>
     </wall>
     <accel>180</accel>
-    <useParticles>0</useParticles>
+    <useParticles>1</useParticles>
     <renderFill>0</renderFill>
     <fillColor>251, 231, 0, 255</fillColor>
     <bgColor>0, 33, 67, 255</bgColor>
     <particles>
         <accel>40</accel>
         <msGrow>350</msGrow>
-        <msStay>4020</msStay>
-        <msDissolve>3000</msDissolve>
-        <sizePerSecond>1.60965</sizePerSecond>
+        <msStay>1560</msStay>
+        <msDissolve>1530</msDissolve>
+        <sizePerSecond>1.51995</sizePerSecond>
     </particles>
 </settings>

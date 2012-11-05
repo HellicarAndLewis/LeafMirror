@@ -38,4 +38,6 @@ class testApp : public ofBaseApp{
 		WallSimulator wall;
 		FrameDifference frameDifference;
 		ofColor currentColor;
+
+		bool showGui;
 };

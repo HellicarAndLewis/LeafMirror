@@ -34,11 +34,22 @@ void Glow::setup(float w, float h,string vertShader){
 
 	fbo1.allocate(settings);
 	fbo2.allocate(settings);
+
+	bgAuto = false;
+	bgColor = ofColor(0,0);
+}
+
+void Glow::setBackgroundAuto(bool _bgAuto){
+	bgAuto = _bgAuto;
+}
+
+void Glow::setBackgroundColor(const ofColor & color){
+	bgColor = color;
 }
 
 void Glow::begin(bool setPerspective){
 	fbo1.begin(setPerspective);
-	//ofClear(0,0);
+	if(bgAuto) ofClear(bgColor);
 }
 
 void Glow::end(){
@@ -47,7 +58,7 @@ void Glow::end(){
 	ofSetColor(255);
 	for(int i=0;i<passes;i++){
 		fbo2.begin();
-		//ofClear(0,0);
+		if(bgAuto) ofClear(bgColor);
 		shader.begin();
 		shader.setUniformTexture("src_tex_unit0",fbo1.getTextureReference(),0);
 		shader.setUniform1i("direction",0);
@@ -57,7 +68,7 @@ void Glow::end(){
 		fbo2.end();
 
 		fbo1.begin();
-		//ofClear(0,0);
+		if(bgAuto) ofClear(bgColor);
 		shader.begin();
 		shader.setUniformTexture("src_tex_unit0",fbo2.getTextureReference(),0);
 		shader.setUniform1i("direction",1);

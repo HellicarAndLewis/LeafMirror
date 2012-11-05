@@ -28,6 +28,7 @@ public:
 	void drawSimulation(float xW, float yW);
 	void drawOutput(float x, float y, float w, float h);
 	void drawBlobs(float x, float y);
+	void drawFbos(float x, float y);
 
 	ofParameter<int> wallHeight,wallWidth;
 	ofParameter<float> ledSeparationX,ledSeparationY;

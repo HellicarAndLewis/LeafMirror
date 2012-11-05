@@ -24,6 +24,9 @@ public:
 	void draw(float x, float y);
 	void draw(float x, float y, float w, float h);
 
+	void setBackgroundAuto(bool bgAuto);
+	void setBackgroundColor(const ofColor & color);
+
 	ofTexture & getDepthTexture();
 	ofTexture & getTextureReference();
 	void readToPixels(ofPixels & pixels);
@@ -33,5 +36,7 @@ public:
 private:
 	ofFbo fbo1, fbo2;
 	ofShader shader;
+	bool bgAuto;
+	ofColor bgColor;
 };
 

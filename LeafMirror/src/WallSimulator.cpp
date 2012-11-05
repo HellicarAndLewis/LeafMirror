@@ -63,6 +63,8 @@ void WallSimulator::wallSizeChanged(int & wallSize){
 	glowParticles.setup((int)wallWidth,(int)wallHeight,"");
 	glowBlobs.setup((int)wallWidth,(int)wallHeight,"");
 	fbo.allocate((int)wallWidth,(int)wallHeight);
+	//glowBlobs.setBackgroundAuto(true);
+	//glowBlobs.setBackgroundColor(ofColor(backgroundColor,0));
 	fbo.begin();
 	drawBackground(0,0);
 	fbo.end();
@@ -90,17 +92,22 @@ void WallSimulator::update(){
 	ofPushMatrix();
 	ofScale(wallWidth/640.,wallHeight/480.,1);
 	particles.draw(0,0);
+	//drawBlobs(0,0);
 	ofPopMatrix();
 	glowParticles.end();
 
-	glowBlobs.begin(true);
-	ofClear(0,0);
+	/*glowBlobs.begin(true);
+	ofSetColor(255);
+	ofPushMatrix();
+	ofScale(wallWidth/640.,wallHeight/480.,1);
 	drawBlobs(0,0);
-	glowBlobs.end();
+	ofPopMatrix();
+	glowBlobs.end();*/
 	//glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	//glDisable(GL_POINT_SPRITE);
 
 
+	//drawBackground(0,0);
 	fbo.begin();
 	if(!particles.empty()){
 		filterShader.begin();
@@ -109,7 +116,6 @@ void WallSimulator::update(){
 		filterShader.setUniform1f("filterFactor",.95);
 		glowParticles.draw(0,0);
 		filterShader.end();
-		glowBlobs.draw(0,0);
 		lastTimeParticles = now;
 	}else{
 		filterShader.begin();
@@ -118,10 +124,18 @@ void WallSimulator::update(){
 		filterShader.setUniform1f("filterFactor",ofMap(now-lastTimeParticles,0,2000,.95,0.6,true));
 		glowParticles.draw(0,0);
 		filterShader.end();
-		glowBlobs.draw(0,0);
 	}
 	fbo.end();
-	fbo.readToPixels(pixels);
+
+	glowBlobs.begin(true);
+	fbo.draw(0,0);
+	ofPushMatrix();
+	ofScale(wallWidth/640.,wallHeight/480.,1);
+	drawBlobs(0,0);
+	ofPopMatrix();
+	//glowBlobs.draw(0,0);
+	glowBlobs.end();
+	glowBlobs.readToPixels(pixels);
 	for(int y=0;y<wallHeight;++y){
 		for(int x=0;x<wallWidth;++x){
 			mesh.getColors()[y*wallWidth+x]=pixels.getColor(x,y);
@@ -152,5 +166,11 @@ void WallSimulator::drawSimulation(float xW, float yW){
 }
 
 void WallSimulator::drawOutput(float x, float y, float w, float h){
-	fbo.draw(x,y,w,h);
+	glowBlobs.draw(x,y,w,h);
+}
+
+void WallSimulator::drawFbos(float x, float y){
+	fbo.draw(x,y);
+	glowParticles.draw(x+wallWidth+10,y);
+	glowBlobs.draw(x+wallWidth*2+20,y);
 }
